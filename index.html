@@ -1,1 +1,64 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM LOCKED</title>
+    <style>
+        body {
+            margin: 0; padding: 0; height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: black; color: darkred;
+            transition: background-color 0.2s, color 0.2s;
+            overflow: hidden;
+        }
+        .flash { animation: flash-anim 1s infinite alternate; }
+        @keyframes flash-anim {
+            from { background-color: black; color: darkred; }
+            to { background-color: darkred; color: black; }
+        }
+        .success {
+            background-color: darkgreen !important;
+            color: white !important;
+            animation: none;
+        }
+        h1 { font-size: 3rem; text-align: center; }
+        input {
+            font-size: 2rem; padding: 10px; background: transparent;
+            border: 2px solid currentColor; color: inherit;
+            text-align: center; outline: none; margin-top: 20px; width: 250px;
+        }
+        #death {
+            position: absolute; font-family: 'Impact', sans-serif;
+            font-size: 20vw; display: none; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="message">SYSTEM LOCKED<br><br>Enter Passcode:</h1>
+    <input type="password" id="passInput" autofocus>
+    <h1 id="death">DEATH</h1>
+    <script>
+        const input = document.getElementById('passInput');
+        const deathText = document.getElementById('death');
+        const message = document.getElementById('message');
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                if (input.value === '123') {
+                    document.body.classList.remove('flash');
+                    document.body.classList.add('success');
+                    message.innerHTML = 'ACCESS GRANTED<br><br>Welcome.';
+                    input.style.display = 'none';
+                    deathText.style.display = 'none';
+                } else {
+                    input.value = '';
+                    deathText.style.display = 'block';
+                }
+            }
+        });
+        document.body.classList.add('flash');
+    </script>
+</body>
+</html>
